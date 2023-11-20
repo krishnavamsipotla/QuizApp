@@ -338,9 +338,8 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Button, StyleSheet, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { submitAnswer, resetQuiz, setFullName } from '../actions/quizActions';
+import { submitAnswer, resetQuiz } from '../actions/quizActions';
 import ScoreModal from './scoremodal';
- import { FullName } from '../actions/quizActions';
 
 const QuizForm = () => {
   const dispatch = useDispatch();
@@ -377,8 +376,7 @@ const QuizForm = () => {
     <ScrollView>
       <View style={styles.container}>
         <View style={styles.headingContainer}>
-          {/* <Text style={styles.headingText}>Quiz Form {fullName}</Text> */}
-          <Text>{`Hello, ${setFullName}! Welcome to the Quiz`}</Text>
+          <Text style={styles.headingText}>Quiz Form</Text>
         </View>
         {questions.map((question, index) => (
           <View key={question.id} style={styles.questionContainer}>
