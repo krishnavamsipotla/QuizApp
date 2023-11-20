@@ -13,7 +13,7 @@ const App = () => {
 };
 
 export default App;
-// App.js
+
 
 // import React from 'react';
 // import { NavigationContainer } from '@react-navigation/native';
