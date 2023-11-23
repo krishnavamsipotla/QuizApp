@@ -3,6 +3,7 @@ import React from 'react';
 import { View, Text, Modal, Button, StyleSheet,  } from 'react-native';
 import Share from 'react-native-share';
 import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 const ScoreModal = ({ isVisible, onClose, score }) => {
   const getScoreColor = () => {
@@ -14,9 +15,9 @@ const ScoreModal = ({ isVisible, onClose, score }) => {
       return 'green';
     }
   };
+  const navigation = useNavigation();
 
   const fullName = useSelector((state) => state.fullName);
-
 
   const share = async () => {
     const options = {
@@ -33,7 +34,6 @@ const ScoreModal = ({ isVisible, onClose, score }) => {
 
   };
 
-
   return (
     <Modal visible={isVisible} animationType="slide" transparent={true}>
       <View style={styles.modalContainer}>
@@ -43,12 +43,11 @@ const ScoreModal = ({ isVisible, onClose, score }) => {
           {/* <Text style={styles.scoreText}>Hey, Your Score : {score}/6 </Text> */}
           </Text>
           <Text style={styles.fullNameText}>{`Congratulations, ${fullName}!`}</Text>
-
-        
           <View style={styles.buttonContainer}>
-
           <Button title="Share" color={'darkturquoise'} onPress={share} styles={styles.button} />
-          <Button title="Close" color="crimson" onPress={onClose}  />
+          <Button title="Reset" color="orange" onPress={onClose}  />
+          <Button title="Exit" color="crimson" onPress={() => { onClose(); navigation.navigate('Home'); }} />
+
           </View>
         </View>
       </View>
@@ -90,13 +89,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', 
     marginTop: 20,
   },
-
   button:{
     flex: 1, 
     marginHorizontal: 10 , 
     height: 80,
-    
-
   }
 });
 

@@ -1,4 +1,4 @@
-// quizReducer.js
+
 const initialState = {
   fullname: '',
   questions: [
