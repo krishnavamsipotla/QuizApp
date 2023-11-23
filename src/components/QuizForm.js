@@ -21,65 +21,50 @@ const QuizForm = () => {
   const questions = useSelector((state) => state.questions);
   
 
-  // State to track the user's score
+  
   const [score, setScore] = useState(0);
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleAnswerSubmit = (questionId, selectedOption, correctOption, questionType) => {
     dispatch(submitAnswer(questionId, selectedOption));
 
-    // Skip score calculation for descriptive questions
+    
     if (questionType === 'descriptive') {
       return;
     }
 
-    // Calculate the score only if the selected option is correct and hasn't been selected before
+    
     if (selectedOption === correctOption && !questions[questionId - 1].selectedOption) {
       setScore(score + 1);
     }
   };
 
-  // const handleDescriptiveSubmit = (questionId, enteredText, correctAnswer) => {
-  //   dispatch(submitAnswer(questionId, enteredText));
-
-  //   // No need to check for correctness, just update the selected option
-  // };
-  // ...
 
 const handleDescriptiveSubmit = (questionId, enteredText, correctAnswer) => {
-  // Check if the entered text matches the correct answer
+  
   const isCorrect = enteredText.toLowerCase() === correctAnswer.toLowerCase();
 
-  // If correct, update the score
   if (isCorrect) {
     setScore(score + 1);
   
   }
 
-  // Update the selected option
   dispatch(submitAnswer(questionId, enteredText));
 };
 
-// ...
-
-
   const handleCloseModal = () => {
-    // Reset the score and dispatch the reset action when closing the modal
     setScore(0);
     dispatch(resetQuiz());
-
-    // Close the modal
     setModalVisible(false);
   };
 
   const handleQuizSubmit = () => {
-    // Show the modal when the user submits the quiz
     setModalVisible(true);
   };
 
   return (
     <ImageBackground
-      source={require('../images/images.jpg')} // Replace with the actual path to your image
+      source={require('../images/images.jpg')} 
       style={styles.background}
     >
       <ScrollView>
@@ -148,16 +133,14 @@ const handleDescriptiveSubmit = (questionId, enteredText, correctAnswer) => {
               )}
               {question.type === 'descriptive' && (
                 <>
-                  {/* <Text style={styles.descriptiveText}>
-                    Correct Answer: {question.correctAnswer}
-                  </Text> */}
+                  
                   <TextInput
                     style={styles.textInput}
                     placeholder="ENTER YOUR ANSWER"
-                    keyboardAppearance="light" // Set to 'light' for a light-themed keyboard
+                    keyboardAppearance="light" 
                     value={questions[question.id - 1].selectedOption || ''}
                     onChangeText={(text) =>
-                      dispatch(submitAnswer(question.id, text)) // Update selected option on every change
+                      dispatch(submitAnswer(question.id, text)) 
                     }
                     onBlur={() =>
                       handleDescriptiveSubmit(
@@ -249,14 +232,6 @@ const styles = StyleSheet.create({
     color: 'black',
     marginBottom: 10,
   },
-  // textInput: {
-  //   height: 40,
-  //   borderColor: 'black',
-  //   borderWidth: 1,
-  //   marginBottom: 10,
-  //   paddingLeft: 10,
-  //   fontSize: 18,
-  // },
   textInput: {
     height: 50,
     // borderColor: 'gray',
@@ -276,7 +251,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   submitButtonContainer: {
-    marginBottom: 50, // Adjust the marginBottom value as needed
+    marginBottom: 50, 
     marginTop: 20,
     borderRadius: 1,
     
